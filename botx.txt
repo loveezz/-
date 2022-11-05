@@ -1,0 +1,82 @@
+# NET.5
+
+using System;
+using Discord;
+using Discord.WebSocket;
+using System.Threading.Tasks;
+
+
+namespace  BotX
+{
+classs  Program
+{
+	DiscordSocketClient client = new DiscordSocketClient();
+
+	static void Main(string[] args)
+	    => new  Program().MainAsync().GetAwaiter().GetResult()
+
+	private async  Task MainAsync()
+	{
+
+	       client = new DiscordSocketClient();
+	       client.MessageReceived += CommanHdl;
+		client.Log += Log;
+
+		var token = "MTAzODQwNjA0NjU4ODM0MjI3Mg.G8qhiM.-Vx66-3YehyCq8AW_smZh1zqQdf6mOj6AgkYp0";
+		await.client.LoginAsync(TokenType.Bot,token);
+		await.client.StartAsync();
+		Console.ReadLine();
+	}
+	private Task Log(LogMessage  arg)
+	{
+             Console.WriteLine(msg.ToString())
+	     return Task.CompletedTask;
+	}
+
+ [Command("info")]
+        private async Task Info(SocketGuildUser socketGuildUser = null)
+        {
+            if (socketGuildUser == null)
+            {
+                var embed = new EmbedBuilder()
+                    .WithColor(Color.Orange)
+                    .WithTitle(Context.User.Username)
+                    .WithImageUrl(Context.User.GetAvatarUrl())
+                    .AddField("User ID:", Context.User.Id, true)
+                    .AddField("Created at", Context.User.CreatedAt, true);
+
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
+            }
+            else
+            {
+                var embed = new EmbedBuilder()
+                    .WithColor(Color.Orange)
+                    .WithTitle(socketGuildUser.Username)
+                    .WithImageUrl(socketGuildUser.GetAvatarUrl())
+                    .AddField("User ID:", socketGuildUser.Id, true)
+                    .AddField("Created at:", socketGuildUser.CreatedAt, true);
+
+              }await Context.Channel.SendMessageAsync(embed: embed.Build());
+           
+
+        
+
+        }
+	private Task CommanHdl(SocketMessage  arg)
+	{
+		if(msg.Aut.IsBot)
+		  switch (msg.Content)
+            	  { 
+
+                     case "! Привет как дела?"
+			  {
+                             msg.Channel.SendMessageAsync($"Привет,{msg.Timestamp}");
+			     break;
+	    
+			   }
+             return Task.CompletedTask;
+
+	}
+      }
+}
+
